@@ -1,4 +1,5 @@
-﻿using DataInjestion.Elasticsearch.Models;
+﻿using DataInjestion.Elasticsearch.Business.Contract;
+using DataInjestion.Elasticsearch.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -20,9 +21,9 @@ namespace DataInjestion.Elasticsearch.Controllers
         }
 
         [HttpGet]
-        public ActionResult PostDataToElasticSearch()
+        public ActionResult GetDataFromElasticSearch()
         {
-            Business.Implementation.GetData getData = new Business.Implementation.GetData(_config);
+            IGetData getData = new Business.Implementation.GetData(_config);
             var response = getData.ReadDataFromElasticSearch();
             if (response != null)
             {

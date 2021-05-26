@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataInjestion.Elasticsearch.Business.Contract
 {
-    interface IPostData
+    public interface IPostData
     {
         bool InjectDataToElasticsearch(List<ElasticModel> elasticDataList);
     }

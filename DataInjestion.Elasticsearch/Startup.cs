@@ -29,14 +29,14 @@ namespace DataInjestion.Elasticsearch
             services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"));
             services.AddControllers();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: "MyAllowSpecificOrigins",
-                    builder =>
-                    {
-                        builder.WithOrigins("https://localhost:44381").AllowAnyHeader().AllowAnyMethod();
-                    });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: "MyAllowSpecificOrigins",
+            //        builder =>
+            //        {
+            //            builder.WithOrigins("https://localhost:44381").AllowAnyHeader().AllowAnyMethod();
+            //        });
+            //});
 
             services.AddSwaggerGen(c =>
             {

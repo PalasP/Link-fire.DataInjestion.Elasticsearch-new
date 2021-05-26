@@ -19,6 +19,11 @@ namespace DataInjestion.Elasticsearch.Business.Implementation
             _config = config;
         }
 
+        /// <summary>
+        /// Post the data in Elasticsearch
+        /// </summary>
+        /// <param name="elasticDataList"></param>
+        /// <returns></returns>
         public bool InjectDataToElasticsearch(List<ElasticModel> elasticDataList)
         {
             try
@@ -35,12 +40,11 @@ namespace DataInjestion.Elasticsearch.Business.Implementation
                         Settings = settings
                     };
 
-                    //creating database named "sample". check if exist before creating the new  
+                    //creating database named "album". check if exist before creating the new  
                     if (!EsClient.Indices.Exists(_config.Value.indexName).Exists)
                     {
-                        EsClient.Indices.Create(_config.Value.indexName, c => c
-                       .InitializeUsing(indexConfig)
-                       .Mappings(m => m.Map<ElasticModel>(mp => mp.AutoMap())));
+
+                        var response = EsClient.Indices.Create(_config.Value.indexName.ToLower(), index => index.Map<ElasticModel>(x => x.AutoMap()));
                     }
 
                     var getTableData = EsClient.Count<ElasticModel>(s => s.Index(_config.Value.indexName)); // This will return Count of records in table  
@@ -68,13 +72,15 @@ namespace DataInjestion.Elasticsearch.Business.Implementation
                         }
                     }
                 }
-
+                return true;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+
             }
-            return true;
+            return false;
+
         }
     }
 }

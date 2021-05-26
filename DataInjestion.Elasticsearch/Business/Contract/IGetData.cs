@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataInjestion.Elasticsearch.Business.Contract
 {
-    interface IGetData
+    public interface IGetData
     {
         CountResponse ReadDataFromElasticSearch();
     }

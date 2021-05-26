@@ -17,11 +17,14 @@ namespace DataInjestion.Elasticsearch.Business.Implementation
             _config = config;
         }
 
-
+        /// <summary>
+        /// Returns Count of records in Elasticsearch
+        /// </summary>
+        /// <returns></returns>
         public CountResponse ReadDataFromElasticSearch()
         {
             Uri EsInstance = new Uri(_config.Value.elasticSearchUrl);
-            ConnectionSettings EsConfiguration = new ConnectionSettings(EsInstance)/*.DefaultMappingFor<List<ElasticModel>>*/;
+            ConnectionSettings EsConfiguration = new ConnectionSettings(EsInstance);
             ElasticClient EsClient = new ElasticClient(EsConfiguration);
 
             var settings = new IndexSettings { NumberOfReplicas = 1, NumberOfShards = 2 };
